@@ -7,6 +7,7 @@ IFILENAME = sys.argv[1]
 OFILENAME = sys.argv[2]
 
 DF = pd.read_csv(IFILENAME, sep=",", keep_default_na=False)
+del DF["Unnamed: 17"]
 
 # Column headings in the file exported from RTSystemsYaesu
 YAESU_COLUMNS = (
@@ -51,7 +52,6 @@ BAOFENG_COLUMNS = (
     "DVCODE",
 )
 
-del DF["Unnamed: 17"]
 for actual in DF.columns:
     assert actual in YAESU_COLUMNS, f"{actual} not recognized"
 
