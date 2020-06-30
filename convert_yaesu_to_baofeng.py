@@ -8,6 +8,7 @@ OFILENAME = sys.argv[2]
 
 
 def auto_truncate(val):
+    """Truncate the input string to the max length allowed in the Baofeng name field."""
     return val[:7]
 
 
