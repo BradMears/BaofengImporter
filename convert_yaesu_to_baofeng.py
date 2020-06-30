@@ -6,7 +6,14 @@ import pandas as pd
 IFILENAME = sys.argv[1]
 OFILENAME = sys.argv[2]
 
-DF = pd.read_csv(IFILENAME, sep=",", keep_default_na=False)
+
+def auto_truncate(val):
+    return val[:7]
+
+
+DF = pd.read_csv(
+    IFILENAME, sep=",", keep_default_na=False, converters={"Name": auto_truncate}
+)
 del DF["Unnamed: 17"]
 
 # Column headings in the file exported from RTSystemsYaesu
@@ -102,12 +109,13 @@ df_out["Mode"] = DF["Operating Mode"]
 df_out["TStep"] = "5"
 
 # Populate the Skip column
-df_out["Skip"] = (
-    DF["Skip"].replace("Off", "").replace("Select", "").replace("Skip", "S")
-)
+# df_out["Skip"] = (
+#    DF["Skip"].replace("Off", "").replace("Select", "").replace("Skip", "S")
+# )
+df_out["Skip"] = ""
 
 # Populate the Comment column
-df_out["Comment"] = DF["Comment"]
+df_out["Comment"] = ""  # DF["Comment"]
 
 # Populate the URCALL column
 df_out["URCALL"] = ""
